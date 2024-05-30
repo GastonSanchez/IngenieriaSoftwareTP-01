@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+background-color: azure;
+text-align: center;
+border: 20px solid gold;
+}
+h1 {
+font-family: 'Times New Roman';
+font-size:60px;
+}
+p1{
+font-size:30px;
+}
+
+p2{
+font-size:30px;
+}
+</style>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<title> Registrarse </title>
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+    <style>
+        .card {
+            margin-top: 30px;
+        }
+    </style>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+
+<h1 > REGISTRARSE </h1>
+
+
+<form action=""  id="formulario">
+ <div class="user_info">
+
+<p1> Datos de usuario </p1> <br><br>
+  <label for="nombre"> Nombre:</label><br>
+  <input type="text" id="nombre" name="nombre" required><br>
+  <label for="apellido"> Apellido:</label><br>
+  <input type="text" id="apellido" name="apellido" required><br>
+  <label for="telefono"> Telefono:</label><br>
+  <input type="number" id="telefono" name="telefono" required><br>
+  <label for="direccionparticular"> Direccion particular:</label><br>
+  <input type="text" id="direccionparticular" name="direccionparticular" required><br>
+  <label for="correo"> Correo:</label><br>
+  <input type="text" id="correo" name="correo" required><br><br>
+  <p2> Datos de emprendimiento </p2> <br><br>
+  <label for="nombreemprendimiento"> Nombre de emprendimiento:</label><br>
+  <input type="text" id="nombreemprendimiento" name="nombreemprendimiento" required><br>
+  <label for="descripcion"> Descripcion:</label><br>
+  <input type="text" id="descripcion" name="rubrodescripcion" required><br>
+  <label for="rubro"> Rubro:</label><br>
+  <input type="text" id="rubro" name="rubro" required><br>
+  <label for="contacto"> Contacto:</label><br>
+  <input type="text" id="contacto" name="contacto" required><br>  
+  <label for="redes"> Redes sociales:</label><br>
+  <input type="text" id="redes" name="redes" required><br>
+  <label for="pago"> Formas de pago:</label><br>
+  <input type="text" id="pago" name="pago" required><br>
+  <label for="zona"> Zona de influencia:</label><br>
+  <input type="text" id="zona" name="zona" required><br>
+  <label for="restricciones"> Restricciones:</label><br>
+  <input type="text" id="restricciones" name="restricciones" required><br>
+  <label for="direccionemprendimiento"> (Opcional) Direccion del emprendimiento:</label><br>
+  <input type="text" id="direccionemprendimiento" name="direccionemprendimiento"><br>
+  <label for="horarios"> (Opcional) Horarios de atencion:</label><br>
+  <input type="text" id="horarios" name="horarios"><br>
+  <label for="ubicacion"> ¿Mostrar ubicacion?</label><br>
+  <input type="checkbox" id="ubicacion" name="ubicacion" value="ubicacion"><br>
+  <label for="logo"> (Opcional) Logo:</label><br>
+  <input type="file" id="logo" name="logo"><br><br>
+  <input type="submit">
+  
+   </div>
+
+</form>
+<script>
+  document.getElementById('formulario').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const direccion = document.getElementById('direccionemprendimiento').value;
+
+    
+    fetch(`http://servicios.usig.buenosaires.gob.ar/normalizar/?direccion=${direccion}`)
+    .then(response => response.json())
+    .then(data => {
+      alert(data.direccionesNormalizadas[0].direccion)
+        //const direccionFormateada = data.results[0].formatted_address;
+        document.getElementById('direccionemprendimiento').value = data.direccionesNormalizadas[0].direccion;
+    })
+    .catch(error => console.error('Error:', error));
+});
+  </script>
+</body>
+
+</html>
