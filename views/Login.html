@@ -13,7 +13,14 @@
         .card {
             margin-top: 30px;
         }
+
+		.alert {
+  padding: 20px;
+  background-color: #f44336;
+  color: white;
+}
     </style>
+	
     <link rel="stylesheet" href="../css/estilos.css">
 </head>
 
@@ -171,12 +178,16 @@
     fetch(`http://servicios.usig.buenosaires.gob.ar/normalizar/?direccion=${direccion}`)
     .then(response => response.json())
     .then(data => {
-      alert(data.direccionesNormalizadas[0].direccion)
-        //const direccionFormateada = data.results[0].formatted_address;
-        document.getElementById('direccionemprendimiento').value = data.direccionesNormalizadas[0].direccion;
+     if (window.confirm("¿es tu direccion " + data.direccionesNormalizadas[0].direccion + " ?")){
+ 
+   
+       window.open( "index.html");
+	}
     })
     .catch(error => console.error('Error:', error));
-	});
+	}
+	
+	);
 </script>
 </body>
 
